@@ -9,14 +9,14 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: 'home.html'
 })
 export class HomePage {
-  
-  creds: CredenciaisDTO ={
+
+  creds: CredenciaisDTO = {
     email: "",
-    senha:""
+    senha: ""
   }
 
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public menu: MenuController,
     public auth: AuthService) {
 
@@ -29,13 +29,24 @@ export class HomePage {
     this.menu.swipeEnable(true);
   }
 
-  login() {
-    this.auth.authenticate(this.creds)
+  ionViewDidEnter() {
+    this.auth.refreshToken()
     .subscribe(response => {
       this.auth.successFulLogin(response.headers.get('Authorization'));
       this.navCtrl.setRoot('CategoriasPage');
     },
-    error => {});    
-}
+      error => { });
+  }
+
+  login() {
+    this.auth.authenticate(this.creds)
+      .subscribe(response => {
+        this.auth.successFulLogin(response.headers.get('Authorization'));
+        this.navCtrl.setRoot('CategoriasPage');
+      },
+        error => { });
+  }
+
+  
 
 }
