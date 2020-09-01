@@ -109,4 +109,11 @@ export class ProfilePage {
     this.picture = null;
   }
 
+  doRefresh(refresher) {
+    this.loadData();
+    setTimeout(() => {
+      refresher.complete();
+    }, 1000);
+  }
+
 }

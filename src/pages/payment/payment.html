@@ -27,8 +27,15 @@
     <ion-item *ngIf="formGroup.value['@type'] == 'pagamentoComCartao'">
       <ion-label stacked>Parcelas no cartão</ion-label>
       <ion-select formControlName="numeroDeParcelas">
-        <ion-option *ngFor="let n of parcelas; first as f" [value]="n" [selected]="f">{{n}}</ion-option>
+        <ion-option *ngFor="let n of parcelas; first as f" [value]="n" [selected]="f">{{n}} x {{valorParcelas(n)}}</ion-option>
       </ion-select>
+    </ion-item>
+  <ion-item>
+    <h1></h1>
+  </ion-item>
+    <ion-item *ngIf="total() > 0">
+      <h1>Total</h1>
+      <h1 item-end>R${{total()}}</h1>
     </ion-item>
     <button ion-button block type="submit" [disabled]="formGroup.invalid">Próximo</button>
   </form>
